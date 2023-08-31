@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// Las clases Router y NavigationExtras son necesarias para que la página login le pase
-// el nombre de usuario a la página home
-import { Router, NavigationExtras } from '@angular/router';
-// La clase ToastController sirve para mostrar mensajes emergente que duran un par de segundos
-import { ToastController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router'; // Permite navegar y pasar parámetros extra entre páginas
+import { ToastController } from '@ionic/angular'; // Permite mostrar mensajes emergente
 import { Usuario } from 'src/app/model/usuario';
 
 @Component({
@@ -12,108 +9,83 @@ import { Usuario } from 'src/app/model/usuario';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  /*
-    Se genera el modelo user con dos claves (key), las que se comportan como propiedades
-    de la clase LoginPage.
-    En Modelo MVC, la clase "LoginPage" viene siendo el "Controlador", encargado de administrar
-    la parte gráfica de la página web de login, por lo que trabaja coordinado con el
-    archivo login.page.html
-    Cada propiedad tiene su valor inicial y tiene su pareja de control HTML que es el <ion-input>
-    De este modo el TAG:
-    <ion-input type="text" [(ngModel)]="login.Usuario"></ion-input>
-    ya sabe que tiene que trabajar con el modelo de Angular a través de la
-    propiedad "login.Usuario".
-    Fijarse que si se le colocan valores iniciales a login.usuario y login.password,
-    estos aparecerán inmediatamente reflejados en la página login cuando esta
-    se abra por primera vez.
-  */
+
+  // CGV: La clase typescript "LoginPage" es la encargada de implementar las reglas de negocio de la página.
+  // Las propiedades del archivo typescript pueden intercambiar valores con los elementos HTML, por medio
+  // de "Modelo Angular". Por ejemplo, el siguiente TAG se enlaza con la propiedad "usuario.correo":
+  //   <ion-input type="text" [(ngModel)]="usuario.correo"></ion-input>
+  // Gracias a este modelo, cada vez que cambia la caja de texto entonces cambia la propiedad y viceversa.
 
   public usuario: Usuario;
-  /*
-    Para poder trabajar con Router y poder navegar hacia la página "home", debemos primero
-    pasar como parámetro e instanciar un objeto de la clase "Router". Fijarse que el tipo
-    de dato, que se pasa en el constructor es "Router" con mayúscula, porque se trata de
-    una clase y éstas parten con letra mayúscula, mientras que "router" con minúscula es
-    el objeto de esa clase, que usaremos para ejecutar el método "navigate".
-  */
+
+  // CGV: Para poder trabajar con Router y poder navegar hacia la página "home", debemos primero pasar como
+  // parámetro e instanciar un objeto de la clase "Router". Fijarse que el tipo de dato, que se pasa 
+  // en el constructor es "Router" con mayúscula, porque se trata de una clase y éstas parten con letra 
+  // mayúscula, mientras que "router" con minúscula es el objeto de esa clase, que usaremos para ejecutar
+  // el método "navigate". La creación de parámetros "private" en el constructor se llama 
+  // "Inyección de Dependencia" y es una práctica recomendada en Angular, que permite crear el objeto
+  // como una propiedad más de la página y así poder usarla. Por otro lado, la "Inyección de Dependencia"
+  // permite compartir una única instancia de dicho objeto en el resto de las páginas que lo usen. Lo
+  // anterior es especialmente importante para mantener la coherencia y estados compartidos en los Servicios.
+  
   constructor(private router: Router, private toastController: ToastController) {
-    this.usuario = new Usuario('', '', '', '', '');
-    this.usuario.correo = '';
-    this.usuario.password = '';
+    this.usuario = new Usuario('', '', '', '', '', '', 0, null)
+  
+    // Puedes descomentar cualquiera de los siguientes usuarios, para 
+    // hacer tus pruebas y así no tener que digitarlos a cada rato
+
+    // this.usuario.setUsuario('sin.datos@duocuc.cl', '1234');
+    // this.usuario.setUsuario('atorres@duocuc.cl', '1234');
+    this.usuario.setUsuario('jperez@duocuc.cl', '5678');
+    // this.usuario.setUsuario('cmujica@duocuc.cl', '0987');
+    // this.usuario.setUsuario('usuario.inexistente@duocuc.cl', '1234');
+    // this.usuario.setUsuario('atorres@duocuc.cl', 'password mala');
+    // this.usuario.setUsuario('atorres@duocuc.cl', '9999999999999');
+    // this.usuario.setUsuario('atorres@duocuc.cl', '9999');
+    // this.usuario.setUsuario('correo.malo', '0987');
+    // this.usuario.setUsuario('correo.malo@', '0987');
+    // this.usuario.setUsuario('correo.malo@duocuc', '0987');
+    // this.usuario.setUsuario('correo.malo@duocuc.', '0987');
   }
 
   public ngOnInit(): void {
 
-    /*
-      Las siguientes 3 líneas de código sirven para lo siguiente:
-        Caso 1: Si las comentas, la página quedará lista para ingresar el nombre de
-          usuario y la password
-        Caso 2: Si dejas las instrucciones sin comentar, entonces entrará inmediatamente
-          a la página home, usando el usuario por defecto "cgomezvega" con la
-          password "123". Lo anterior es muy útil para el caso en que ya quedó lista
-          la página de login y me interesa probar las otras páginas, de este modo se saltará
-          el login y no tendrás que estar digitando los datos todo el tiempo.
-    */
-    this.usuario.correo = 'atorres@duocuc.cl';
-    this.usuario.password = '1234';
-    //this.ingresar();
+    // Puedes descomentar la siguiente línea si quieres que la aplicación navegue directamente
+    // a la página Home, así te ahorras de estar apretando el botón "Ingresar" a cada rato
+    
+    //if (this.usuario.correo !== '') this.ingresar();
   }
 
- 
   public ingresar(): void {
-
-    if(!this.validarUsuario(this.usuario)) {
-      return;
-    }
-
-    this.mostrarMensaje('¡Bienvenido!');
-
-    /*
-      Se declara e instancia un objeto de la clase NavigationExtras, para poder pasarle
-      parámetros a la página home. Al objeto json "state" se le asigna un objeto con
-      nombre de clave "login" y el valor "this.login", de modo que
-      le pase la cuenta de usuario y su password a la página home.
-
-      Nótese que al enviar this.login, realmente se está enviando los valores que el usuario
-      digitó en las cajas de input, pues gracias a la directiva [(ngModel)]="login.usuario",
-      el programa sabe que hay una relación directa de unión entre el valor de la propiedad
-      login.usuario y el valor del control gráfico que lleva este mismo nombre.
-    */
-    const navigationExtras: NavigationExtras = {
-      state: {
-        usuario: this.usuario
+    
+    if (this.usuario) {
+      
+      // Validamos el usuario y si hay error no navegaremos a la página Home
+      const mensajeError = this.usuario.validarUsuario();
+      if (mensajeError) {
+        this.mostrarMensaje(mensajeError);
+        return;
       }
-    };
-    // Navegamos hacia el Home y enviamos la información extra
-    this.router.navigate(['/home'], navigationExtras);
-  }
 
-  /*
-    Usaremos validateModel para verificar que se cumplan las
-    validaciones de los campos del formulario
-  */
-  public validarUsuario(usuario: Usuario): boolean {
-
-    const usu = this.usuario.buscarUsuarioValido(
-      this.usuario.correo, this.usuario.password);
-
-    if (usu) {
-      this.usuario = usu;
-      return true;
-    }
-    else {
-      this.mostrarMensaje('Las credenciales no son correctas!');
-      return false;
+      // Como la página sólo permite ingresar el correo y la password, vamos a buscar el usuario para completar sus datos
+      const usu: Usuario | undefined = this.usuario.buscarUsuarioValido(this.usuario.correo, this.usuario.password);
+      
+      if (usu) {
+        // NavigationExtras sirve para pasarle parámetros a la página Home. Los parámetros se agregan al objeto "state"
+        const navigationExtras: NavigationExtras = {
+          state: {
+            usuario: usu
+          }
+        };
+        this.mostrarMensaje(`¡Bienvenido(a) ${usu.nombre} ${usu.apellido}!`);
+        this.router.navigate(['/home'], navigationExtras); // Navegamos hacia el Home y enviamos la información extra
+      }
     }
   }
 
-  /**
-   * Muestra un toast al usuario
-   *
-   * @param mensaje Mensaje a presentar al usuario
-   * @param duracion Duración el toast, este es opcional
-   */
   async mostrarMensaje(mensaje: string, duracion?: number) {
+    // Permite mostrar un mensaje emergente que dura unos pocos segundos y desaparece. El mensaje es asincrónico, 
+    // los que permite que el mensaje se pueda ver incluso cuando ya ha cambiado a la siguiente página.
     const toast = await this.toastController.create({
         message: mensaje,
         duration: duracion? duracion: 2000

@@ -29,15 +29,22 @@
 
       <ion-card-content>
         <ion-item>
-          <!--aca se puede configurar el label para poner el usuario-->
-          <ion-label position="floating" name="mail-outline">Usuario</ion-label>
-          <ion-input type="text" placeholder="ingrese usuario"></ion-input>
+          <ion-label position="floating">
+            <ion-icon color="primary" name="mail-outline" slot="start"></ion-icon>
+            Usuario
+          </ion-label>
+          <ion-input name="correo" label="Correo" labelPlacement="floating" type="text" [(ngModel)]="usuario.correo" placeholder="Ingrese usuario"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" placeholder="ingresar contraseña"></ion-input>
+          <ion-label position="floating">
+            <ion-icon color="primary" name="lock-closed" slot="start"></ion-icon>
+            Contraseña
+          </ion-label>
+          <ion-input name="password" label="Contraseña" labelPlacement="floating" type="password"
+          placeholder="Ingresar contraseña" [(ngModel)]="usuario.password"></ion-input>
         </ion-item>
+        
 
       <ion-row>
         <ion-col size="12">
