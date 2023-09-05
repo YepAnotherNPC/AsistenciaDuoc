@@ -8,3 +8,27 @@ ion-content{
 ion-item{
     --padding-botton: 10px;
 }
+
+.image-container {
+    max-width: 100%; /* Asegura que la imagen no sea más ancha que su contenedor */
+    width: 80%; /* Puedes ajustar este valor según tus preferencias */
+    margin: 0 auto; /* Centra el contenedor en la pantalla */
+    border: 1px solid #080707; /* Un borde opcional para resaltar la imagen */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Una sombra ligera */
+}
+
+.image-container img {
+    display: block; /* Elimina cualquier espacio extra debajo de la imagen */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+}
+
+.card {
+    width: 300px;
+    padding: 20px;
+    background-color: #f7f5f599;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.927);
+    border-radius: 10px; /* Redondea los bordes de la tarjeta */
+}
+
+

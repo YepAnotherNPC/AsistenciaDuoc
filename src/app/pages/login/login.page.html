@@ -1,15 +1,7 @@
-<ion-header mode="md">
-  <ion-toolbar>
-    <ion-title>
-
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-title class="ion-padding-top ion-text-center">
+      <ion-title class="inicio ion-padding-top ion-text-center">
         <strong>Sistema de Asistencia Duoc</strong>
       </ion-title>
     </ion-toolbar>
@@ -21,6 +13,10 @@
 
     <ion-card class="ion-text-center ion-padding-vertical">
       
+      <div class="image-container">
+        <img class="imagen" src="assets/img/logo.jpg">
+      </div>
+
       <ion-card-title class="ion-text-center">
         <ion-label>
           <h2>!Bienvenido¡</h2>
@@ -48,10 +44,16 @@
 
       <ion-row>
         <ion-col size="12">
-          <ion-button shape="block" (click)="ingresar()">Ingresar</ion-button>
+          <ion-button shape="block" (click)="ingresar()">
+            Ingresar
+            <ion-icon slot="end" name="log-in-outline"></ion-icon>
+          </ion-button>
+          <ion-icon slot="end" name="log-in-outline"></ion-icon>
         </ion-col>
       </ion-row>
       </ion-card-content>
+
+      <div routerLink="">Recuperar contraseña</div>
 
 
     </ion-card>
