@@ -1,29 +1,27 @@
-<ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title class="inicio ion-padding-top ion-text-center">
-        <strong>Sistema de Asistencia Duoc</strong>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true">
 
 
 
   <div class="ion-padding-vertical">
+    
+    <div class="image-container ion-text-center">
+      <img class="imagen" src="assets/img/Logo-Duoc.png">
+    </div>
 
-    <ion-card class="ion-text-center ion-padding-vertical">
+    <ion-card class="ion-text-center ion-padding-vertical ion.padding-horizontal">
       
-      <div class="image-container">
-        <img class="imagen" src="assets/img/logo.jpg">
-      </div>
+      <ion-title class="inicio ion-padding-top ion-text-center">
+        <h1 class="saludo">Sistema de Asistencia Duoc</h1>
+      </ion-title>
+
 
       <ion-card-title class="ion-text-center">
         <ion-label>
-          <h2>!Bienvenido¡</h2>
+          <h2 class="saludo">!Bienvenido¡</h2>
         </ion-label>
       </ion-card-title>
 
-      <ion-card-content>
+      <ion-card-content class="label">
         <ion-item>
           <ion-label position="floating">
             <ion-icon color="primary" name="mail-outline" slot="start"></ion-icon>
@@ -44,7 +42,7 @@
 
       <ion-row>
         <ion-col size="12">
-          <ion-button shape="block" (click)="ingresar()">
+          <ion-button color="warning" shape="block" (click)="ingresar()">
             Ingresar
             <ion-icon slot="end" name="log-in-outline"></ion-icon>
           </ion-button>

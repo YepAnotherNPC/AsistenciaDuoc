@@ -88,7 +88,8 @@ export class LoginPage implements OnInit {
     // los que permite que el mensaje se pueda ver incluso cuando ya ha cambiado a la siguiente página.
     const toast = await this.toastController.create({
         message: mensaje,
-        duration: duracion? duracion: 2000
+        duration: duracion? duracion: 2000,
+        color: 'dark'
       });
     toast.present();
   }
