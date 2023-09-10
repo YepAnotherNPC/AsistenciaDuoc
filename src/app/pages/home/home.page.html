@@ -13,26 +13,35 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="center-container ion-padding-vertical ion-padding-horizontal">
-    <ion-card>
-      <ion-item>
-        <ion-label>
-          <strong>Bienvenido(a)!</strong> <br>
-          Esta es la pagina Home, donde puedes registrar tu asistencia escaneando un QR!
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          <strong>¿Aún no has confirmado tu asistencia?</strong>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-button expand="full" routerLink="/qr">Ir a QR</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-button expand="full" (click)="cerrarSesion()">Cerrar sesión</ion-button>
-      </ion-item>
-    </ion-card>
-  </div>
+  <ion-row>
+    <ion-col size="12">
+      <div class="center-container ion-padding-vertical ion-padding-horizontal">
+        <ion-card class="card">
+          <ion-item>
+            <ion-label>
+              <strong>Bienvenido(a)!</strong> <br>
+              Esta es la pagina Home, donde puedes registrar tu asistencia escaneando un QR!
+            </ion-label>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label>
+              <strong>¿Aún no has confirmado tu asistencia?</strong>
+            </ion-label>
+          </ion-item>
+    
+          <ion-item>
+            <ion-button expand="full" routerLink="/qrreader">Ir a QR</ion-button>
+          </ion-item>
+          
+          <ion-item>
+            <ion-button expand="full" (click)="cerrarSesion()">Cerrar sesión</ion-button>
+          </ion-item>
+          
+        </ion-card>
+      </div>
+      
+    </ion-col>
+  </ion-row>
 </ion-content>
 
